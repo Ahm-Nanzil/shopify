@@ -1,0 +1,122 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PawPerfect - Premium Dog Accessories</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+.hero{
+    height:100vh;
+    background:url('https://images.unsplash.com/photo-1517849845537-4d257902454a?w=1600') center/cover;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:white;
+}
+
+.overlay{
+    background:rgba(0,0,0,.5);
+    padding:50px;
+    border-radius:12px;
+}
+
+h1{
+    font-size:60px;
+    margin-bottom:20px;
+}
+
+p{
+    font-size:20px;
+    margin-bottom:30px;
+}
+
+.btn{
+    display:inline-block;
+    padding:15px 35px;
+    background:#ff9800;
+    color:white;
+    text-decoration:none;
+    border-radius:6px;
+    font-size:18px;
+}
+
+.products{
+    padding:80px 20px;
+    text-align:center;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+    margin-top:40px;
+}
+
+.card{
+    box-shadow:0 2px 10px rgba(0,0,0,.1);
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.card img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+}
+
+.card h3{
+    padding:15px;
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+    <div class="overlay">
+        <h1>Happy Dogs. Happy Life.</h1>
+        <p>Premium accessories for your best friend.</p>
+
+        <!-- Replace with Shopify Product URL -->
+        <a class="btn" href="https://YOURSTORE.myshopify.com/products/dog-bed">
+            Shop Now
+        </a>
+    </div>
+</section>
+
+<section class="products">
+    <h2>Best Sellers</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800">
+            <h3>Dog Toys</h3>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=800">
+            <h3>Dog Beds</h3>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800">
+            <h3>Dog Collars</h3>
+        </div>
+
+    </div>
+</section>
+
+</body>
+</html>
+```
