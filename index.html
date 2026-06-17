@@ -1,122 +1,2575 @@
-```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PawPerfect - Premium Dog Accessories</title>
-
+<title>PAWVARA — Premium Dog Accessories</title>
+<meta name="description" content="Handcrafted leather dog collars, leashes, and accessories for dogs who deserve the best. Shop PAWVARA's premium collection.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
+/* ═══════════════════════════════════════════
+   TOKENS & RESET
+═══════════════════════════════════════════ */
+:root {
+  --obsidian: #0D0D0D;
+  --ivory: #F7F3EE;
+  --ivory-deep: #EDE8E0;
+  --sage: #8BA888;
+  --sage-light: #B8CFBA;
+  --amber: #C4703A;
+  --amber-light: #D4895C;
+  --gold: #D4A853;
+  --stone: #6B6560;
+  --stone-light: #9B9590;
+  --white: #FFFFFF;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+
+  --nav-h: 72px;
+  --section-pad: clamp(80px, 10vw, 140px);
+  --container: 1240px;
+  --gutter: clamp(20px, 5vw, 60px);
 }
 
-.hero{
-    height:100vh;
-    background:url('https://images.unsplash.com/photo-1517849845537-4d257902454a?w=1600') center/cover;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    color:white;
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--ivory);
+  color: var(--obsidian);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-.overlay{
-    background:rgba(0,0,0,.5);
-    padding:50px;
-    border-radius:12px;
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+button { border: none; cursor: pointer; font-family: var(--font-body); }
+ul { list-style: none; }
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
 }
 
-h1{
-    font-size:60px;
-    margin-bottom:20px;
+/* ═══════════════════════════════════════════
+   SCROLL ANIMATIONS
+═══════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+.reveal.revealed { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+}
+.reveal-left.revealed { opacity: 1; transform: translateX(0); }
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+}
+.reveal-right.revealed { opacity: 1; transform: translateX(0); }
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+}
+.reveal-scale.revealed { opacity: 1; transform: scale(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-right, .reveal-scale {
+    opacity: 1; transform: none; transition: none;
+  }
 }
 
-p{
-    font-size:20px;
-    margin-bottom:30px;
+/* ═══════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--gutter);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+.nav.scrolled {
+  background: rgba(247, 243, 238, 0.95);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 rgba(13,13,13,0.08);
+}
+.nav-inner {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--ivory);
+  transition: color 0.4s;
+}
+.nav.scrolled .nav-logo { color: var(--obsidian); }
+.nav-links {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+}
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: rgba(247,243,238,0.85);
+  transition: color 0.2s;
+}
+.nav.scrolled .nav-links a { color: var(--stone); }
+.nav-links a:hover { color: var(--amber); }
+.nav.scrolled .nav-links a:hover { color: var(--amber); }
+.nav-cta {
+  background: var(--amber);
+  color: var(--white);
+  padding: 10px 24px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: background 0.2s, transform 0.2s;
+}
+.nav-cta:hover { background: var(--amber-light); transform: translateY(-1px); color: var(--white); }
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  padding: 4px;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--ivory);
+  transition: background 0.4s, transform 0.3s;
+  border-radius: 2px;
+}
+.nav.scrolled .nav-hamburger span { background: var(--obsidian); }
+
+/* Mobile nav drawer */
+.nav-drawer {
+  position: fixed;
+  top: 0; right: -100%;
+  width: min(320px, 85vw);
+  height: 100vh;
+  background: var(--ivory);
+  z-index: 200;
+  padding: 80px 40px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  transition: right 0.4s var(--ease-out);
+  box-shadow: -4px 0 40px rgba(0,0,0,0.15);
+}
+.nav-drawer.open { right: 0; }
+.nav-drawer a {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--obsidian);
+  border-bottom: 1px solid var(--ivory-deep);
+  padding-bottom: 16px;
+}
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 150;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.nav-overlay.active { opacity: 1; pointer-events: all; }
+.drawer-close {
+  position: absolute;
+  top: 24px; right: 24px;
+  background: none;
+  font-size: 24px;
+  color: var(--stone);
+  line-height: 1;
 }
 
-.btn{
-    display:inline-block;
-    padding:15px 35px;
-    background:#ff9800;
-    color:white;
-    text-decoration:none;
-    border-radius:6px;
-    font-size:18px;
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
 }
 
-.products{
-    padding:80px 20px;
-    text-align:center;
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 640px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #1a1209 0%, #2d1f0e 40%, #1a0e06 100%);
+}
+/* Animated gradient orbs */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  animation: float 8s ease-in-out infinite;
+}
+.hero-orb-1 {
+  width: 600px; height: 600px;
+  background: var(--amber);
+  top: -200px; right: -100px;
+  animation-delay: 0s;
+}
+.hero-orb-2 {
+  width: 400px; height: 400px;
+  background: var(--sage);
+  bottom: -150px; left: 20%;
+  animation-delay: -3s;
+}
+.hero-orb-3 {
+  width: 300px; height: 300px;
+  background: var(--gold);
+  top: 30%; left: 10%;
+  animation-delay: -5s;
+  opacity: 0.2;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
 }
 
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:25px;
-    margin-top:40px;
+/* Dog silhouette illustration */
+.hero-illustration {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: min(55%, 680px);
+  height: 90%;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateX(30px);
+  animation: heroImgIn 1.2s 0.4s var(--ease-out) forwards;
+}
+@keyframes heroImgIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+.hero-dog-scene {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+/* SVG illustration of a dog */
+.hero-illustration svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
-.card{
-    box-shadow:0 2px 10px rgba(0,0,0,.1);
-    border-radius:10px;
-    overflow:hidden;
+/* Mesh texture overlay */
+.hero-mesh {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+  pointer-events: none;
 }
 
-.card img{
-    width:100%;
-    height:250px;
-    object-fit:cover;
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: calc(var(--nav-h) + 20px) var(--gutter) 60px;
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.5s var(--ease-out) forwards;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--gold);
+}
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 7vw, 96px);
+  font-weight: 700;
+  line-height: 1.0;
+  color: var(--ivory);
+  max-width: 680px;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.65s var(--ease-out) forwards;
+}
+.hero-headline em {
+  font-style: italic;
+  color: var(--amber);
+  font-weight: 400;
+}
+.hero-sub {
+  font-size: 17px;
+  line-height: 1.65;
+  color: rgba(247,243,238,0.65);
+  max-width: 440px;
+  margin-bottom: 44px;
+  font-weight: 300;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.8s var(--ease-out) forwards;
+}
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.95s var(--ease-out) forwards;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--amber);
+  color: var(--white);
+  padding: 16px 36px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.5s;
+}
+.btn-primary:hover::after { transform: translateX(100%); }
+.btn-primary:hover {
+  background: var(--amber-light);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(196, 112, 58, 0.4);
+}
+.btn-primary .btn-arrow {
+  transition: transform 0.25s;
+}
+.btn-primary:hover .btn-arrow { transform: translateX(4px); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(247,243,238,0.8);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 16px 8px;
+  border-bottom: 1px solid rgba(247,243,238,0.3);
+  transition: color 0.2s, border-color 0.2s;
+}
+.btn-ghost:hover { color: var(--ivory); border-color: var(--ivory); }
+
+.hero-proof {
+  margin-top: 56px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  opacity: 0;
+  animation: fadeUp 0.9s 1.1s var(--ease-out) forwards;
+}
+.proof-avatars {
+  display: flex;
+}
+.proof-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(247,243,238,0.3);
+  margin-left: -10px;
+  overflow: hidden;
+  background: var(--stone);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+.proof-avatar:first-child { margin-left: 0; }
+.proof-text {
+  font-size: 13px;
+  color: rgba(247,243,238,0.7);
+  line-height: 1.5;
+}
+.proof-text strong { color: var(--ivory); font-weight: 600; }
+.proof-stars {
+  display: flex;
+  gap: 2px;
+  color: var(--gold);
+  font-size: 12px;
 }
 
-.card h3{
-    padding:15px;
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(247,243,238,0.4);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: scrollHint 2s 1.5s ease-in-out infinite;
+  opacity: 0;
+}
+@keyframes scrollHint {
+  0%, 100% { opacity: 0; transform: translateX(-50%) translateY(0); }
+  30%, 70% { opacity: 1; }
+  100% { transform: translateX(-50%) translateY(8px); }
+}
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(247,243,238,0.4), transparent);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════
+   TRUST BAR
+═══════════════════════════════════════════ */
+.trust-bar {
+  background: var(--obsidian);
+  padding: 20px var(--gutter);
+  overflow: hidden;
+}
+.trust-bar-inner {
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  color: rgba(247,243,238,0.6);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+.trust-item-icon {
+  font-size: 16px;
+  color: var(--gold);
+}
+
+/* ═══════════════════════════════════════════
+   PRODUCT SECTION
+═══════════════════════════════════════════ */
+.product-section {
+  padding: var(--section-pad) 0;
+  background: var(--ivory);
+}
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+/* Gallery */
+.product-gallery {
+  position: sticky;
+  top: calc(var(--nav-h) + 20px);
+}
+.gallery-main {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--ivory-deep);
+  aspect-ratio: 4/5;
+  cursor: zoom-in;
+}
+.gallery-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out), opacity 0.4s;
+}
+.gallery-main:hover .gallery-main-img { transform: scale(1.03); }
+.gallery-badge {
+  position: absolute;
+  top: 20px; left: 20px;
+  background: var(--amber);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 3px;
+}
+.gallery-thumbs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+.gallery-thumb {
+  aspect-ratio: 1;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.2s, transform 0.2s;
+  background: var(--ivory-deep);
+}
+.gallery-thumb.active { border-color: var(--amber); }
+.gallery-thumb:hover { transform: translateY(-2px); }
+.gallery-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.gallery-thumb:hover .gallery-thumb-img { transform: scale(1.05); }
+
+/* Product info */
+.product-info { padding-top: 8px; }
+.product-category {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 12px;
+}
+.product-name {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 3.5vw, 48px);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--obsidian);
+  margin-bottom: 16px;
+}
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.stars { display: flex; gap: 3px; color: var(--gold); font-size: 14px; }
+.rating-count { font-size: 13px; color: var(--stone); }
+.rating-count a { color: var(--amber); border-bottom: 1px solid rgba(196,112,58,0.3); }
+.product-price-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.price-current {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--obsidian);
+}
+.price-original {
+  font-size: 20px;
+  color: var(--stone-light);
+  text-decoration: line-through;
+}
+.price-save {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--amber);
+  background: rgba(196,112,58,0.1);
+  padding: 4px 10px;
+  border-radius: 3px;
+}
+.product-desc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--stone);
+  margin-bottom: 32px;
+  border-left: 3px solid var(--sage-light);
+  padding-left: 18px;
+}
+
+/* Variant selectors */
+.variant-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 12px;
+}
+.size-options {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.size-btn {
+  padding: 8px 20px;
+  border: 1.5px solid var(--ivory-deep);
+  border-radius: 4px;
+  background: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--stone);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.size-btn:hover { border-color: var(--obsidian); color: var(--obsidian); }
+.size-btn.active {
+  border-color: var(--obsidian);
+  background: var(--obsidian);
+  color: var(--ivory);
+}
+.color-options {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.color-btn {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s;
+}
+.color-btn::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+.color-btn:hover { transform: scale(1.1); }
+.color-btn.active::after { border-color: var(--obsidian); }
+
+.add-to-cart {
+  width: 100%;
+  background: var(--obsidian);
+  color: var(--ivory);
+  padding: 18px 32px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.add-to-cart::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.5s;
+}
+.add-to-cart:hover::after { transform: translateX(100%); }
+.add-to-cart:hover {
+  background: #1f1f1f;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(13, 13, 13, 0.3);
+}
+.add-to-cart:active { transform: translateY(0); }
+
+.buy-now {
+  width: 100%;
+  background: var(--amber);
+  color: var(--white);
+  padding: 18px 32px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.buy-now:hover {
+  background: var(--amber-light);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(196,112,58,0.35);
+}
+.product-trust {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding-top: 24px;
+  border-top: 1px solid var(--ivory-deep);
+}
+.ptrust-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+.ptrust-icon { font-size: 20px; }
+.ptrust-text {
+  font-size: 11px;
+  color: var(--stone);
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* Highlights */
+.product-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+.highlight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--stone);
+  line-height: 1.5;
+}
+.highlight-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(139, 168, 136, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--sage);
+}
+
+@media (max-width: 900px) {
+  .product-grid { grid-template-columns: 1fr; gap: 40px; }
+  .product-gallery { position: static; }
+  .gallery-thumbs { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ═══════════════════════════════════════════
+   BENEFITS
+═══════════════════════════════════════════ */
+.benefits-section {
+  padding: var(--section-pad) 0;
+  background: var(--obsidian);
+  position: relative;
+  overflow: hidden;
+}
+.benefits-bg-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display);
+  font-size: clamp(80px, 12vw, 180px);
+  font-weight: 700;
+  color: rgba(255,255,255,0.02);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+.section-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  display: block;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+.section-title.light { color: var(--ivory); }
+.section-sub {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--stone-light);
+  max-width: 520px;
+  margin-bottom: 60px;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+.benefit-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  padding: 36px 28px;
+  transition: background 0.3s, border-color 0.3s, transform 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.benefit-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--amber), var(--gold));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease-out);
+}
+.benefit-card:hover {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.1);
+  transform: translateY(-4px);
+}
+.benefit-card:hover::before { transform: scaleX(1); }
+.benefit-icon {
+  font-size: 32px;
+  margin-bottom: 20px;
+  display: block;
+  transition: transform 0.3s;
+}
+.benefit-card:hover .benefit-icon { transform: scale(1.1); }
+.benefit-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ivory);
+  margin-bottom: 12px;
+}
+.benefit-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(247,243,238,0.55);
+}
+
+/* ═══════════════════════════════════════════
+   WHY CUSTOMERS LOVE IT
+═══════════════════════════════════════════ */
+.features-section {
+  padding: var(--section-pad) 0;
+  background: var(--ivory);
+}
+.feature-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 100px);
+  align-items: center;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  margin-bottom: 100px;
+}
+.feature-row:last-child { margin-bottom: 0; }
+.feature-row.reverse { direction: rtl; }
+.feature-row.reverse > * { direction: ltr; }
+
+.feature-visual {
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 4/3;
+}
+.feature-visual-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s var(--ease-out);
+  position: relative;
+}
+.feature-visual:hover .feature-visual-inner { transform: scale(1.03); }
+.feature-visual-bg {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(80px, 12vw, 140px);
+  position: relative;
+}
+.feature-visual-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: linear-gradient(135deg, rgba(196,112,58,0.15), transparent);
+  transition: opacity 0.4s;
+}
+.feature-visual:hover .feature-visual-overlay { opacity: 1; }
+.feature-number {
+  position: absolute;
+  bottom: 20px; right: 20px;
+  font-family: var(--font-display);
+  font-size: 120px;
+  font-weight: 700;
+  color: rgba(0,0,0,0.04);
+  line-height: 1;
+  user-select: none;
+}
+.feature-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 12px;
+}
+.feature-title {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--obsidian);
+  margin-bottom: 18px;
+}
+.feature-text {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--stone);
+  margin-bottom: 28px;
+}
+.feature-stats {
+  display: flex;
+  gap: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--ivory-deep);
+}
+.fstat-num {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--amber);
+}
+.fstat-label { font-size: 12px; color: var(--stone-light); margin-top: 2px; }
+
+@media (max-width: 768px) {
+  .feature-row { grid-template-columns: 1fr; }
+  .feature-row.reverse { direction: ltr; }
+}
+
+/* ═══════════════════════════════════════════
+   LIFESTYLE SHOWCASE
+═══════════════════════════════════════════ */
+.lifestyle-section {
+  padding: var(--section-pad) 0;
+  background: var(--ivory-deep);
+}
+.lifestyle-header {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.lifestyle-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--amber);
+  border-bottom: 1px solid rgba(196,112,58,0.3);
+  padding-bottom: 2px;
+  transition: border-color 0.2s;
+}
+.lifestyle-link:hover { border-color: var(--amber); }
+.lifestyle-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto;
+  gap: 16px;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.lcard {
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+.lcard:nth-child(1) { grid-column: 1 / 6; grid-row: 1; aspect-ratio: 3/4; }
+.lcard:nth-child(2) { grid-column: 6 / 9; grid-row: 1; aspect-ratio: 3/4; }
+.lcard:nth-child(3) { grid-column: 9 / 13; grid-row: 1; aspect-ratio: 3/4; }
+.lcard:nth-child(4) { grid-column: 1 / 5; grid-row: 2; aspect-ratio: 16/9; }
+.lcard:nth-child(5) { grid-column: 5 / 13; grid-row: 2; aspect-ratio: 16/9; }
+
+.lcard-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lcard-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  transition: transform 0.6s var(--ease-out);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(60px, 10vw, 120px);
+}
+.lcard:hover .lcard-bg { transform: scale(1.06); }
+.lcard-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(13,13,13,0.6) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.lcard:hover .lcard-overlay { opacity: 1; }
+.lcard-label {
+  position: absolute;
+  bottom: 16px; left: 16px;
+  color: var(--ivory);
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+.lcard:hover .lcard-label { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 768px) {
+  .lifestyle-grid { grid-template-columns: 1fr 1fr; }
+  .lcard:nth-child(1), .lcard:nth-child(2), .lcard:nth-child(3),
+  .lcard:nth-child(4), .lcard:nth-child(5) {
+    grid-column: auto;
+    grid-row: auto;
+    aspect-ratio: 1;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   REVIEWS
+═══════════════════════════════════════════ */
+.reviews-section {
+  padding: var(--section-pad) 0;
+  background: var(--ivory);
+  overflow: hidden;
+}
+.reviews-header {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.reviews-summary {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.review-big-num {
+  font-family: var(--font-display);
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--obsidian);
+  line-height: 1;
+}
+.reviews-summary-text { display: flex; flex-direction: column; gap: 4px; }
+.review-stars-lg { display: flex; gap: 4px; color: var(--gold); font-size: 18px; }
+.review-count { font-size: 13px; color: var(--stone-light); }
+
+.reviews-track-wrap {
+  position: relative;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.reviews-track {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+.review-card {
+  background: var(--ivory-deep);
+  border-radius: 10px;
+  padding: 28px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: 1px solid transparent;
+}
+.review-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  border-color: var(--ivory-deep);
+}
+.review-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+.reviewer-info { display: flex; align-items: center; gap: 12px; }
+.reviewer-avatar {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--white);
+  flex-shrink: 0;
+}
+.reviewer-name { font-size: 14px; font-weight: 600; color: var(--obsidian); }
+.reviewer-pet { font-size: 12px; color: var(--stone-light); margin-top: 1px; }
+.review-rating { display: flex; gap: 2px; color: var(--gold); font-size: 12px; }
+.review-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--stone);
+  margin-bottom: 16px;
+}
+.review-text strong { color: var(--obsidian); font-weight: 600; }
+.review-product {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--stone-light);
+  padding-top: 14px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+.review-product-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--sage);
+}
+.review-verified {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--sage);
+  margin-left: auto;
+}
+
+/* ═══════════════════════════════════════════
+   FAQ
+═══════════════════════════════════════════ */
+.faq-section {
+  padding: var(--section-pad) 0;
+  background: var(--obsidian);
+}
+.faq-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.faq-list { display: flex; flex-direction: column; gap: 0; margin-top: 56px; }
+.faq-item {
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.faq-question {
+  width: 100%;
+  background: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ivory);
+  text-align: left;
+  gap: 20px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.faq-question:hover { color: var(--gold); }
+.faq-icon {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: rgba(247,243,238,0.5);
+  transition: all 0.3s;
+}
+.faq-item.open .faq-icon {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: var(--white);
+  transform: rotate(45deg);
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s var(--ease-out), padding 0.3s;
+}
+.faq-item.open .faq-answer { max-height: 300px; }
+.faq-answer-inner {
+  padding-bottom: 24px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: rgba(247,243,238,0.55);
+}
+
+/* ═══════════════════════════════════════════
+   FINAL CTA
+═══════════════════════════════════════════ */
+.final-cta {
+  padding: var(--section-pad) 0;
+  background: var(--ivory);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.final-cta-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.final-cta-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.12;
+}
+.final-cta-orb-1 {
+  width: 500px; height: 500px;
+  background: var(--amber);
+  top: -200px; left: -100px;
+}
+.final-cta-orb-2 {
+  width: 400px; height: 400px;
+  background: var(--sage);
+  bottom: -150px; right: -50px;
+}
+.final-cta-inner {
+  position: relative;
+  z-index: 2;
+}
+.cta-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 20px;
+}
+.final-cta .section-title {
+  max-width: 640px;
+  margin: 0 auto 20px;
+  color: var(--obsidian);
+}
+.final-cta-sub {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--stone);
+  max-width: 480px;
+  margin: 0 auto 48px;
+}
+.final-cta-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+}
+.final-trust {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.ftrust-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--stone);
+  font-weight: 500;
+}
+.ftrust-icon { color: var(--sage); font-size: 16px; }
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer {
+  background: var(--obsidian);
+  padding: 60px 0 32px;
+}
+.footer-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  margin-bottom: 32px;
+}
+.footer-brand .nav-logo {
+  color: var(--ivory);
+  display: inline-block;
+  margin-bottom: 16px;
+  font-size: 20px;
+}
+.footer-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(247,243,238,0.4);
+  max-width: 280px;
+  margin-bottom: 24px;
+}
+.footer-socials { display: flex; gap: 14px; }
+.social-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: rgba(247,243,238,0.5);
+  transition: all 0.2s;
+  cursor: pointer;
+  background: none;
+}
+.social-btn:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+  transform: translateY(-2px);
+}
+.footer-col-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ivory);
+  margin-bottom: 20px;
+}
+.footer-col a {
+  display: block;
+  font-size: 14px;
+  color: rgba(247,243,238,0.45);
+  margin-bottom: 12px;
+  transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--ivory); }
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-copy {
+  font-size: 12px;
+  color: rgba(247,243,238,0.25);
+}
+.footer-payments { display: flex; gap: 10px; align-items: center; }
+.payment-badge {
+  background: rgba(255,255,255,0.06);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(247,243,238,0.4);
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .footer-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .footer-top { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════════════════
+   STICKY MOBILE CTA
+═══════════════════════════════════════════ */
+.sticky-buy {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--ivory);
+  padding: 16px 20px;
+  box-shadow: 0 -4px 30px rgba(0,0,0,0.12);
+  z-index: 90;
+  gap: 12px;
+  align-items: center;
+  transform: translateY(100%);
+  transition: transform 0.4s var(--ease-out);
+}
+.sticky-buy.visible { transform: translateY(0); }
+.sticky-buy-price {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--obsidian);
+  flex: 1;
+}
+.sticky-buy .btn-primary {
+  flex: 2;
+  padding: 14px 24px;
+}
+@media (max-width: 900px) {
+  .sticky-buy { display: flex; }
+}
+
+/* ═══════════════════════════════════════════
+   MISC UTILITIES
+═══════════════════════════════════════════ */
+.text-center { text-align: center; }
+.text-amber { color: var(--amber); }
+.divider-line {
+  width: 48px;
+  height: 2px;
+  background: var(--amber);
+  margin: 0 auto 32px;
+}
+
+/* Quantity selector */
+.qty-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.qty-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+.qty-ctrl {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid var(--ivory-deep);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.qty-btn {
+  width: 36px; height: 36px;
+  background: none;
+  font-size: 18px;
+  color: var(--stone);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.qty-btn:hover { background: var(--ivory-deep); color: var(--obsidian); }
+.qty-val {
+  width: 40px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--obsidian);
+  border: none;
+  background: none;
+  outline: none;
+}
+
+/* Toast notification */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--obsidian);
+  color: var(--ivory);
+  padding: 14px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 300;
+  transition: transform 0.4s var(--ease-out);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  white-space: nowrap;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast-icon { color: var(--sage); font-size: 16px; }
+
+/* Loading shimmer on image placeholders */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, var(--ivory-deep) 25%, #e8e3da 50%, var(--ivory-deep) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
 }
 </style>
 </head>
-
 <body>
 
-<section class="hero">
-    <div class="overlay">
-        <h1>Happy Dogs. Happy Life.</h1>
-        <p>Premium accessories for your best friend.</p>
+<!-- ══ NAV ══ -->
+<nav class="nav" id="nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">PAWVARA</a>
+    <ul class="nav-links" role="list">
+      <li><a href="#product">Shop</a></li>
+      <li><a href="#benefits">Craftsmanship</a></li>
+      <li><a href="#lifestyle">Lifestyle</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#product" class="nav-cta">Shop Now</a></li>
+    </ul>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-overlay" id="navOverlay"></div>
+<div class="nav-drawer" id="navDrawer" role="dialog" aria-label="Mobile navigation">
+  <button class="drawer-close" id="drawerClose" aria-label="Close menu">✕</button>
+  <a href="#product" class="drawer-link">Shop</a>
+  <a href="#benefits" class="drawer-link">Craftsmanship</a>
+  <a href="#lifestyle" class="drawer-link">Lifestyle</a>
+  <a href="#reviews" class="drawer-link">Reviews</a>
+  <a href="#faq" class="drawer-link">FAQ</a>
+</div>
 
-        <!-- Replace with Shopify Product URL -->
-        <a class="btn" href="https://YOURSTORE.myshopify.com/products/dog-bed">
-            Shop Now
+<!-- ══ HERO ══ -->
+<section class="hero" aria-label="Hero">
+  <div class="hero-bg">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+  </div>
+  <div class="hero-mesh"></div>
+
+  <!-- Dog SVG illustration -->
+  <div class="hero-illustration" aria-hidden="true">
+    <svg viewBox="0 0 600 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
+      <defs>
+        <radialGradient id="bodyGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#8B6914" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#5C4209" stop-opacity="0.7"/>
+        </radialGradient>
+        <radialGradient id="collarGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#D4A853"/>
+          <stop offset="100%" stop-color="#B8892F"/>
+        </radialGradient>
+        <filter id="softBlur">
+          <feGaussianBlur stdDeviation="1"/>
+        </filter>
+        <linearGradient id="legGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#7A5C12"/>
+          <stop offset="100%" stop-color="#4A3808"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Shadow -->
+      <ellipse cx="300" cy="695" rx="140" ry="16" fill="rgba(0,0,0,0.25)" filter="url(#softBlur)"/>
+
+      <!-- Body -->
+      <ellipse cx="300" cy="480" rx="140" ry="110" fill="url(#bodyGrad)"/>
+      <!-- Belly lighter patch -->
+      <ellipse cx="300" cy="500" rx="80" ry="70" fill="rgba(210,180,100,0.3)"/>
+
+      <!-- Back legs -->
+      <rect x="180" y="560" width="52" height="100" rx="26" fill="url(#legGrad)"/>
+      <rect x="368" y="560" width="52" height="100" rx="26" fill="url(#legGrad)"/>
+      <!-- Paws back -->
+      <ellipse cx="206" cy="660" rx="30" ry="14" fill="#3D2C07"/>
+      <ellipse cx="394" cy="660" rx="30" ry="14" fill="#3D2C07"/>
+
+      <!-- Front legs -->
+      <rect x="214" y="540" width="48" height="110" rx="24" fill="#7A5C12"/>
+      <rect x="338" y="540" width="48" height="110" rx="24" fill="#7A5C12"/>
+      <!-- Paws front -->
+      <ellipse cx="238" cy="650" rx="28" ry="13" fill="#3D2C07"/>
+      <ellipse cx="362" cy="650" rx="28" ry="13" fill="#3D2C07"/>
+
+      <!-- Tail -->
+      <path d="M440 430 Q520 370 510 290 Q505 260 480 255" stroke="#7A5C12" stroke-width="28" fill="none" stroke-linecap="round"/>
+      <circle cx="478" cy="252" r="14" fill="#6A4E0F"/>
+
+      <!-- Neck -->
+      <rect x="255" y="350" width="90" height="90" rx="35" fill="url(#bodyGrad)"/>
+
+      <!-- Head -->
+      <ellipse cx="300" cy="300" rx="115" ry="105" fill="url(#bodyGrad)"/>
+
+      <!-- Ears -->
+      <ellipse cx="195" cy="240" rx="38" ry="62" fill="#6A4E0F" transform="rotate(-15 195 240)"/>
+      <ellipse cx="405" cy="240" rx="38" ry="62" fill="#6A4E0F" transform="rotate(15 405 240)"/>
+      <!-- Inner ears -->
+      <ellipse cx="196" cy="245" rx="22" ry="42" fill="#8B6520" transform="rotate(-15 196 245)"/>
+      <ellipse cx="404" cy="245" rx="22" ry="42" fill="#8B6520" transform="rotate(15 404 245)"/>
+
+      <!-- Face lighter patch -->
+      <ellipse cx="300" cy="315" rx="72" ry="62" fill="rgba(210,180,100,0.35)"/>
+
+      <!-- Snout -->
+      <ellipse cx="300" cy="338" rx="48" ry="34" fill="#C4A040" opacity="0.6"/>
+      <!-- Nose -->
+      <ellipse cx="300" cy="322" rx="18" ry="12" fill="#1a0e06"/>
+      <!-- Nose shine -->
+      <ellipse cx="307" cy="318" rx="5" ry="3" fill="rgba(255,255,255,0.3)"/>
+
+      <!-- Mouth -->
+      <path d="M283 340 Q300 354 317 340" stroke="#3D2C07" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+      <!-- Eyes -->
+      <circle cx="265" cy="285" r="20" fill="#1a0e06"/>
+      <circle cx="335" cy="285" r="20" fill="#1a0e06"/>
+      <!-- Eye irises -->
+      <circle cx="265" cy="285" r="13" fill="#8B5E10"/>
+      <circle cx="335" cy="285" r="13" fill="#8B5E10"/>
+      <!-- Pupils -->
+      <circle cx="265" cy="285" r="7" fill="#0D0700"/>
+      <circle cx="335" cy="285" r="7" fill="#0D0700"/>
+      <!-- Eye shine -->
+      <circle cx="270" cy="280" r="4" fill="rgba(255,255,255,0.6)"/>
+      <circle cx="340" cy="280" r="4" fill="rgba(255,255,255,0.6)"/>
+
+      <!-- Eyebrows -->
+      <path d="M248 268 Q265 260 282 265" stroke="#5C4209" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M318 265 Q335 260 352 268" stroke="#5C4209" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+      <!-- PREMIUM COLLAR -->
+      <rect x="240" y="390" width="120" height="28" rx="14" fill="url(#collarGrad)"/>
+      <!-- Collar stitching -->
+      <rect x="248" y="397" width="104" height="14" rx="7" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <!-- Collar buckle -->
+      <rect x="288" y="387" width="24" height="34" rx="5" fill="#C4A040" stroke="#A08020" stroke-width="1.5"/>
+      <rect x="294" y="392" width="12" height="24" rx="3" fill="rgba(0,0,0,0.2)"/>
+      <!-- D-ring -->
+      <path d="M295 425 Q300 436 305 425" stroke="#C4A040" stroke-width="4" fill="none"/>
+
+      <!-- Pawvara tag -->
+      <circle cx="300" cy="445" r="14" fill="url(#collarGrad)"/>
+      <text x="300" y="449" text-anchor="middle" font-family="Georgia, serif" font-size="7" font-weight="bold" fill="#3D2C07">PAW</text>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Handcrafted in Italy</div>
+    <h1 class="hero-headline">
+      Luxury they<br>
+      <em>wear every</em><br>
+      single day.
+    </h1>
+    <p class="hero-sub">
+      Premium leather accessories for dogs who deserve the finest. Each piece is handstitched by master craftspeople using full-grain leather and solid brass hardware.
+    </p>
+    <div class="hero-actions">
+      <a href="#product" class="btn-primary">
+        Shop the Collection
+        <span class="btn-arrow">→</span>
+      </a>
+      <a href="#reviews" class="btn-ghost">
+        See why 12,000+ dogs love us
+      </a>
+    </div>
+    <div class="hero-proof">
+      <div class="proof-avatars">
+        <div class="proof-avatar" aria-hidden="true">🐕</div>
+        <div class="proof-avatar" aria-hidden="true">🦮</div>
+        <div class="proof-avatar" aria-hidden="true">🐩</div>
+        <div class="proof-avatar" aria-hidden="true">🐕‍🦺</div>
+      </div>
+      <div>
+        <div class="proof-stars" aria-label="5 stars">★★★★★</div>
+        <div class="proof-text"><strong>12,847 happy pups</strong> — rated 4.9/5</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll-hint" aria-hidden="true">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ══ TRUST BAR ══ -->
+<div class="trust-bar" aria-label="Trust indicators">
+  <div class="trust-bar-inner">
+    <div class="trust-item"><span class="trust-item-icon">🚚</span> Free Shipping Over $75</div>
+    <div class="trust-item"><span class="trust-item-icon">🔄</span> 60-Day Returns</div>
+    <div class="trust-item"><span class="trust-item-icon">🛡️</span> Lifetime Guarantee</div>
+    <div class="trust-item"><span class="trust-item-icon">✦</span> Handcrafted in Italy</div>
+    <div class="trust-item"><span class="trust-item-icon">🌿</span> Sustainably Sourced</div>
+  </div>
+</div>
+
+<!-- ══ PRODUCT SECTION ══ -->
+<section class="product-section" id="product" aria-label="Featured product">
+  <div class="product-grid">
+    <!-- Gallery -->
+    <div class="product-gallery reveal-left" id="productGallery">
+      <div class="gallery-main" id="galleryMain">
+        <div class="gallery-main-img" id="galleryMainImg" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#2d1f0e,#4a3808);">
+          <div style="text-align:center;">
+            <div style="font-size:120px;line-height:1;margin-bottom:16px;">🐕</div>
+            <div style="font-family:'Playfair Display',serif;font-size:22px;color:rgba(247,243,238,0.9);font-style:italic;">Heritage Collar</div>
+          </div>
+        </div>
+        <div class="gallery-badge">Bestseller</div>
+      </div>
+      <div class="gallery-thumbs" id="galleryThumbs">
+        <div class="gallery-thumb active" data-index="0">
+          <div class="gallery-thumb-img" style="width:100%;height:100%;background:linear-gradient(135deg,#2d1f0e,#4a3808);display:flex;align-items:center;justify-content:center;font-size:28px;">🐕</div>
+        </div>
+        <div class="gallery-thumb" data-index="1">
+          <div class="gallery-thumb-img" style="width:100%;height:100%;background:linear-gradient(135deg,#1a2e1a,#2a4a2a);display:flex;align-items:center;justify-content:center;font-size:28px;">🌿</div>
+        </div>
+        <div class="gallery-thumb" data-index="2">
+          <div class="gallery-thumb-img" style="width:100%;height:100%;background:linear-gradient(135deg,#2e2020,#4a3030);display:flex;align-items:center;justify-content:center;font-size:28px;">🏷️</div>
+        </div>
+        <div class="gallery-thumb" data-index="3">
+          <div class="gallery-thumb-img" style="width:100%;height:100%;background:linear-gradient(135deg,#1a1a2e,#2a2a4a);display:flex;align-items:center;justify-content:center;font-size:28px;">✨</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="product-info reveal-right">
+      <div class="product-category">The Signature Collection</div>
+      <h2 class="product-name">Heritage Leather Collar</h2>
+      <div class="product-rating">
+        <div class="stars" aria-label="4.9 out of 5 stars">★★★★★</div>
+        <span class="rating-count">4.9 · <a href="#reviews">2,341 reviews</a></span>
+      </div>
+      <div class="product-price-row">
+        <span class="price-current">$89</span>
+        <span class="price-original">$129</span>
+        <span class="price-save">Save 31%</span>
+      </div>
+      <p class="product-desc">
+        Full-grain vegetable-tanned leather that softens and develops a rich patina over time. Solid brass hardware, triple-stitched seams, and personalized engraving included — because your dog deserves heirloom quality.
+      </p>
+
+      <div class="product-highlights">
+        <div class="highlight-item">
+          <span class="highlight-icon">✓</span>
+          Full-grain Italian leather — naturally water-resistant and develops character with age
+        </div>
+        <div class="highlight-item">
+          <span class="highlight-icon">✓</span>
+          Solid brass quick-release buckle — no plastic, no rust, no compromise
+        </div>
+        <div class="highlight-item">
+          <span class="highlight-icon">✓</span>
+          Free personalized engraving on the ID tag with your dog's name
+        </div>
+        <div class="highlight-item">
+          <span class="highlight-icon">✓</span>
+          Vet-recommended width — distributes pressure gently for all-day comfort
+        </div>
+      </div>
+
+      <div class="variant-label">Size — <span id="selectedSize" style="color:var(--obsidian);font-weight:600">Medium</span></div>
+      <div class="size-options" role="group" aria-label="Select size">
+        <button class="size-btn" data-size="XS">XS</button>
+        <button class="size-btn" data-size="S">S</button>
+        <button class="size-btn active" data-size="M">M</button>
+        <button class="size-btn" data-size="L">L</button>
+        <button class="size-btn" data-size="XL">XL</button>
+      </div>
+
+      <div class="variant-label">Color</div>
+      <div class="color-options" role="group" aria-label="Select color">
+        <button class="color-btn active" style="background:#8B6914" aria-label="Cognac Brown" title="Cognac Brown"></button>
+        <button class="color-btn" style="background:#1a1a1a" aria-label="Midnight Black" title="Midnight Black"></button>
+        <button class="color-btn" style="background:#5C3A1E" aria-label="Dark Mahogany" title="Dark Mahogany"></button>
+        <button class="color-btn" style="background:#C4A882" aria-label="Natural Tan" title="Natural Tan"></button>
+        <button class="color-btn" style="background:#4A5568" aria-label="Slate Grey" title="Slate Grey"></button>
+      </div>
+
+      <div class="qty-row">
+        <span class="qty-label">Qty</span>
+        <div class="qty-ctrl">
+          <button class="qty-btn" id="qtyMinus" aria-label="Decrease quantity">−</button>
+          <span class="qty-val" id="qtyVal" aria-live="polite">1</span>
+          <button class="qty-btn" id="qtyPlus" aria-label="Increase quantity">+</button>
+        </div>
+      </div>
+
+      <button class="add-to-cart" id="addToCartBtn" aria-label="Add Heritage Leather Collar to cart">
+        🛒 Add to Cart
+      </button>
+      <button class="buy-now" aria-label="Buy Heritage Leather Collar now">
+        ⚡ Buy Now — Ships in 24h
+      </button>
+
+      <div class="product-trust">
+        <div class="ptrust-item">
+          <span class="ptrust-icon">🚚</span>
+          <span class="ptrust-text">Free shipping over $75</span>
+        </div>
+        <div class="ptrust-item">
+          <span class="ptrust-icon">🔄</span>
+          <span class="ptrust-text">60-day free returns</span>
+        </div>
+        <div class="ptrust-item">
+          <span class="ptrust-icon">🛡️</span>
+          <span class="ptrust-text">Lifetime guarantee</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BENEFITS ══ -->
+<section class="benefits-section" id="benefits" aria-label="Product benefits">
+  <div class="benefits-bg-text" aria-hidden="true">CRAFTED</div>
+  <div class="container">
+    <div class="text-center reveal">
+      <span class="section-tag">Why PAWVARA</span>
+      <h2 class="section-title light">Built to last a lifetime.</h2>
+      <p class="section-sub" style="margin:0 auto 60px;color:rgba(247,243,238,0.5);">
+        We make one promise: every PAWVARA piece should outlast fashion trends and grow more beautiful with every walk.
+      </p>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card reveal reveal-delay-1">
+        <span class="benefit-icon">🇮🇹</span>
+        <h3 class="benefit-title">Italian Craftsmanship</h3>
+        <p class="benefit-text">Each collar is handstitched in our Florentine atelier by leatherworkers who have passed down their techniques through generations. No shortcuts.</p>
+      </div>
+      <div class="benefit-card reveal reveal-delay-2">
+        <span class="benefit-icon">🌿</span>
+        <h3 class="benefit-title">Vegetable-Tanned Leather</h3>
+        <p class="benefit-text">We use only full-grain leather tanned with plant-based extracts — free of harsh chemicals, gentle on sensitive skin, and infinitely better for the planet.</p>
+      </div>
+      <div class="benefit-card reveal reveal-delay-3">
+        <span class="benefit-icon">⚙️</span>
+        <h3 class="benefit-title">Solid Brass Hardware</h3>
+        <p class="benefit-text">Every buckle, D-ring and keeper is cast from marine-grade solid brass. It won't corrode, crack or disappoint — even after thousands of adventures.</p>
+      </div>
+      <div class="benefit-card reveal reveal-delay-4">
+        <span class="benefit-icon">✨</span>
+        <h3 class="benefit-title">Living Patina</h3>
+        <p class="benefit-text">Unlike dyed leather, ours develops a rich, personal patina with use. Your dog's collar becomes uniquely theirs over time — better every single day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FEATURES / WHY CUSTOMERS LOVE IT ══ -->
+<section class="features-section" aria-label="Product features">
+  <div class="container text-center reveal" style="margin-bottom:72px">
+    <span class="section-tag">Why customers love it</span>
+    <h2 class="section-title">Every detail matters.</h2>
+  </div>
+
+  <!-- Feature 1 -->
+  <div class="feature-row">
+    <div class="feature-visual reveal-left">
+      <div class="feature-visual-inner">
+        <div class="feature-visual-bg" style="background:linear-gradient(135deg,#EDE8E0,#D4C8B0);">
+          🏆
+          <span class="feature-number" aria-hidden="true">01</span>
+        </div>
+        <div class="feature-visual-overlay"></div>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="feature-tag">Fit &amp; Comfort</div>
+      <h3 class="feature-title">Contoured for your dog's comfort all day long.</h3>
+      <p class="feature-text">Our collars are shaped with a subtle taper that follows the natural curve of your dog's neck. The leather is pre-conditioned before it ships — soft from day one, not stiff like most leather products.</p>
+      <div class="feature-stats">
+        <div>
+          <div class="fstat-num">98%</div>
+          <div class="fstat-label">report no irritation</div>
+        </div>
+        <div>
+          <div class="fstat-num">All day</div>
+          <div class="fstat-label">wear, zero discomfort</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature 2 -->
+  <div class="feature-row reverse">
+    <div class="feature-visual reveal-right">
+      <div class="feature-visual-inner">
+        <div class="feature-visual-bg" style="background:linear-gradient(135deg,#1a2e1a,#2a4a2a);">
+          🌿
+          <span class="feature-number" aria-hidden="true">02</span>
+        </div>
+        <div class="feature-visual-overlay"></div>
+      </div>
+    </div>
+    <div class="reveal-left">
+      <div class="feature-tag">Sustainability</div>
+      <h3 class="feature-title">Made with the world in mind — not just your pup.</h3>
+      <p class="feature-text">Our tannery runs on 100% renewable energy, uses closed-loop water systems, and sources hides only from certified ethical farms. We offset every order's shipping emissions automatically.</p>
+      <div class="feature-stats">
+        <div>
+          <div class="fstat-num">100%</div>
+          <div class="fstat-label">renewable energy</div>
+        </div>
+        <div>
+          <div class="fstat-num">Carbon</div>
+          <div class="fstat-label">neutral shipping</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature 3 -->
+  <div class="feature-row">
+    <div class="feature-visual reveal-left">
+      <div class="feature-visual-inner">
+        <div class="feature-visual-bg" style="background:linear-gradient(135deg,#2e1a0e,#4a3020);">
+          ✍️
+          <span class="feature-number" aria-hidden="true">03</span>
+        </div>
+        <div class="feature-visual-overlay"></div>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="feature-tag">Personalization</div>
+      <h3 class="feature-title">A name, a message — engraved to last forever.</h3>
+      <p class="feature-text">Every collar comes with a solid brass ID tag. We hand-engrave your dog's name and your phone number with a precision laser that won't fade — ever. No extra charge. It's just how we do things.</p>
+      <div class="feature-stats">
+        <div>
+          <div class="fstat-num">Free</div>
+          <div class="fstat-label">personalized engraving</div>
+        </div>
+        <div>
+          <div class="fstat-num">Laser</div>
+          <div class="fstat-label">precision, lasts forever</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ LIFESTYLE ══ -->
+<section class="lifestyle-section" id="lifestyle" aria-label="Lifestyle showcase">
+  <div class="lifestyle-header">
+    <div class="reveal">
+      <span class="section-tag">Life with PAWVARA</span>
+      <h2 class="section-title">Every walk, an occasion.</h2>
+    </div>
+    <a href="#product" class="lifestyle-link reveal">Shop the look →</a>
+  </div>
+  <div class="lifestyle-grid">
+    <div class="lcard reveal reveal-delay-1">
+      <div class="lcard-inner">
+        <div class="lcard-bg" style="background:linear-gradient(135deg,#8B6914,#5C4209);">🐕</div>
+        <div class="lcard-overlay"></div>
+        <div class="lcard-label">Morning walk</div>
+      </div>
+    </div>
+    <div class="lcard reveal reveal-delay-2">
+      <div class="lcard-inner">
+        <div class="lcard-bg" style="background:linear-gradient(135deg,#1a3a1a,#2a5a2a);">🌲</div>
+        <div class="lcard-overlay"></div>
+        <div class="lcard-label">Trail adventures</div>
+      </div>
+    </div>
+    <div class="lcard reveal reveal-delay-3">
+      <div class="lcard-inner">
+        <div class="lcard-bg" style="background:linear-gradient(135deg,#3a1a1a,#5a2a2a);">🏙️</div>
+        <div class="lcard-overlay"></div>
+        <div class="lcard-label">City style</div>
+      </div>
+    </div>
+    <div class="lcard reveal reveal-delay-2">
+      <div class="lcard-inner">
+        <div class="lcard-bg" style="background:linear-gradient(135deg,#1a1a3a,#2a2a5a);">🌙</div>
+        <div class="lcard-overlay"></div>
+        <div class="lcard-label">Evening out</div>
+      </div>
+    </div>
+    <div class="lcard reveal reveal-delay-3">
+      <div class="lcard-inner">
+        <div class="lcard-bg" style="background:linear-gradient(135deg,#2d1f0e,#C4703A);">✨</div>
+        <div class="lcard-overlay"></div>
+        <div class="lcard-label">Heritage collection</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ REVIEWS ══ -->
+<section class="reviews-section" id="reviews" aria-label="Customer reviews">
+  <div class="reviews-header">
+    <div class="reveal">
+      <span class="section-tag">Real dogs, real stories</span>
+      <h2 class="section-title">12,000+ pups can't be wrong.</h2>
+    </div>
+    <div class="reviews-summary reveal">
+      <div class="review-big-num" aria-label="4.9 rating">4.9</div>
+      <div class="reviews-summary-text">
+        <div class="review-stars-lg" aria-hidden="true">★★★★★</div>
+        <div class="review-count">Based on 2,341 reviews</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reviews-track-wrap">
+    <div class="reviews-track">
+      <article class="review-card reveal reveal-delay-1">
+        <div class="review-top">
+          <div class="reviewer-info">
+            <div class="reviewer-avatar" style="background:var(--amber)">SJ</div>
+            <div>
+              <div class="reviewer-name">Sarah J.</div>
+              <div class="reviewer-pet">🐕 Golden Retriever owner</div>
+            </div>
+          </div>
+          <div class="review-rating" aria-label="5 stars">★★★★★</div>
+        </div>
+        <p class="review-text">"I bought this for Biscuit 2 years ago and it still looks <strong>better than it did on day one</strong>. The leather has developed the most beautiful honey-colored patina. Every dog owner at the park asks where I got it."</p>
+        <div class="review-product">
+          <div class="review-product-dot"></div>
+          Heritage Collar · Cognac Brown · Medium
+          <span class="review-verified">✓ Verified</span>
+        </div>
+      </article>
+
+      <article class="review-card reveal reveal-delay-2">
+        <div class="review-top">
+          <div class="reviewer-info">
+            <div class="reviewer-avatar" style="background:var(--sage)">MR</div>
+            <div>
+              <div class="reviewer-name">Marcus R.</div>
+              <div class="reviewer-pet">🐩 French Bulldog owner</div>
+            </div>
+          </div>
+          <div class="review-rating" aria-label="5 stars">★★★★★</div>
+        </div>
+        <p class="review-text">"Tried four different collars for my Frenchie's sensitive skin before finding PAWVARA. <strong>Zero irritation</strong>, perfect fit, and the engraving is stunning. Worth every penny — actually cheaper than replacing cheap collars constantly."</p>
+        <div class="review-product">
+          <div class="review-product-dot"></div>
+          Heritage Collar · Midnight Black · Small
+          <span class="review-verified">✓ Verified</span>
+        </div>
+      </article>
+
+      <article class="review-card reveal reveal-delay-3">
+        <div class="review-top">
+          <div class="reviewer-info">
+            <div class="reviewer-avatar" style="background:#8B5CF6">EP</div>
+            <div>
+              <div class="reviewer-name">Elena P.</div>
+              <div class="reviewer-pet">🦮 Labrador owner</div>
+            </div>
+          </div>
+          <div class="review-rating" aria-label="5 stars">★★★★★</div>
+        </div>
+        <p class="review-text">"Ordered as a gift for my sister's new puppy. The packaging alone made her cry — so elegant. The collar is <strong>absolutely gorgeous</strong> and the free engraving made it feel like a real luxury gift. 10/10 would gift again."</p>
+        <div class="review-product">
+          <div class="review-product-dot"></div>
+          Heritage Collar · Natural Tan · XS
+          <span class="review-verified">✓ Verified</span>
+        </div>
+      </article>
+
+      <article class="review-card reveal reveal-delay-1">
+        <div class="review-top">
+          <div class="reviewer-info">
+            <div class="reviewer-avatar" style="background:#EC4899">DK</div>
+            <div>
+              <div class="reviewer-name">David K.</div>
+              <div class="reviewer-pet">🐕‍🦺 Border Collie owner</div>
+            </div>
+          </div>
+          <div class="review-rating" aria-label="5 stars">★★★★★</div>
+        </div>
+        <p class="review-text">"My Border Collie runs in rivers, rolls in mud, and <strong>still looks immaculate</strong> after a quick wipe. The hardware hasn't shown a single spot of rust after 18 months. This is the last collar I'll ever need to buy."</p>
+        <div class="review-product">
+          <div class="review-product-dot"></div>
+          Heritage Collar · Dark Mahogany · Large
+          <span class="review-verified">✓ Verified</span>
+        </div>
+      </article>
+
+      <article class="review-card reveal reveal-delay-2">
+        <div class="review-top">
+          <div class="reviewer-info">
+            <div class="reviewer-avatar" style="background:var(--gold)">LM</div>
+            <div>
+              <div class="reviewer-name">Laura M.</div>
+              <div class="reviewer-pet">🐕 Dachshund owner</div>
+            </div>
+          </div>
+          <div class="review-rating" aria-label="5 stars">★★★★★</div>
+        </div>
+        <p class="review-text">"The customer service is as premium as the product. My first collar arrived slightly loose and they sent a replacement <strong>next day, no questions asked</strong>. That kind of experience is why I've since bought leashes and a harness too."</p>
+        <div class="review-product">
+          <div class="review-product-dot"></div>
+          Heritage Collar · Cognac Brown · XS
+          <span class="review-verified">✓ Verified</span>
+        </div>
+      </article>
+
+      <article class="review-card reveal reveal-delay-3">
+        <div class="review-top">
+          <div class="reviewer-info">
+            <div class="reviewer-avatar" style="background:#10B981">AO</div>
+            <div>
+              <div class="reviewer-name">Alex O.</div>
+              <div class="reviewer-pet">🐩 Poodle owner</div>
+            </div>
+          </div>
+          <div class="review-rating" aria-label="4 stars">★★★★★</div>
+        </div>
+        <p class="review-text">"I was skeptical about the price but now I understand. The leather smell is <strong>incredible</strong>, the stitching is flawless under a magnifying glass, and my poodle actually seems to enjoy wearing it. Truly a premium experience from box to buckle."</p>
+        <div class="review-product">
+          <div class="review-product-dot"></div>
+          Heritage Collar · Slate Grey · Medium
+          <span class="review-verified">✓ Verified</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section class="faq-section" id="faq" aria-label="Frequently asked questions">
+  <div class="faq-inner">
+    <div class="reveal text-center">
+      <span class="section-tag">Got questions?</span>
+      <h2 class="section-title light">We've got answers.</h2>
+    </div>
+    <div class="faq-list reveal" role="list">
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false">
+          How do I find the right size for my dog?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            Measure around the widest part of your dog's neck with a soft tape measure, then add 2 inches for a comfortable fit. Our size guide: XS (8–10"), S (10–13"), M (13–17"), L (17–21"), XL (21–26"). If your dog is between sizes, we recommend sizing up — you can always adjust the buckle. Every order comes with a detailed sizing card.
+          </div>
+        </div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false">
+          Is the leather waterproof? Can my dog swim in it?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            Vegetable-tanned leather is naturally water-resistant, not waterproof. Your dog can splash in puddles and run through light rain with no issues. For swimming or regular water exposure, we recommend removing the collar and drying it naturally away from direct heat. We include a small tin of our beeswax conditioner with every order — using it once a month keeps the leather supple and maximally water-resistant.
+          </div>
+        </div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false">
+          How long does it take to receive my order?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            We ship all in-stock orders within 24 hours on business days. Standard shipping takes 3–5 business days. Express (1–2 day) and next-day options are available at checkout. Engraved orders take one additional business day for engraving. International orders typically arrive in 7–14 business days depending on your country.
+          </div>
+        </div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false">
+          What is your return and exchange policy?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            We offer a 60-day return window on all products — even personalized ones. If the fit isn't right, the color isn't what you hoped, or your dog just doesn't love it (rare, but it happens), send it back for a full refund or free exchange. We pay for return shipping. No questions asked. We believe if you're not 100% happy, we haven't done our job.
+          </div>
+        </div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false">
+          What does the Lifetime Guarantee actually cover?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            Our guarantee covers manufacturing defects, hardware failure, and stitching issues for the lifetime of the product. If the buckle breaks, a seam splits, or the D-ring fails — we replace it free, no matter when you bought it. Normal wear and patina development are features, not defects. The only thing not covered is intentional damage or use as a chew toy (we make those too — they're excellent).
+          </div>
+        </div>
+      </div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false">
+          Can I order a gift? Is there gift packaging?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">
+            All PAWVARA orders arrive in our signature gift packaging — a rigid-sided box in our house obsidian, lined with tissue and ribbon. No extra charge for this; it's just how we ship. At checkout you can add a handwritten gift note. For special occasions, we also offer custom box embossing with a name or date for $12 — very popular for birthdays and "gotcha day" celebrations.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FINAL CTA ══ -->
+<section class="final-cta" aria-label="Final call to action">
+  <div class="final-cta-bg">
+    <div class="final-cta-orb final-cta-orb-1"></div>
+    <div class="final-cta-orb final-cta-orb-2"></div>
+  </div>
+  <div class="container final-cta-inner">
+    <div class="reveal">
+      <span class="cta-eyebrow">Limited time — 31% off</span>
+      <h2 class="section-title" style="max-width:620px;margin:0 auto 20px">
+        Your dog only deserves<br><em style="font-family:var(--font-display);font-style:italic;color:var(--amber)">the very best.</em>
+      </h2>
+      <p class="final-cta-sub">
+        Join 12,000+ dog owners who chose quality over compromise. Free engraving, free returns, and a lifetime guarantee included with every order.
+      </p>
+      <div class="final-cta-actions">
+        <a href="#product" class="btn-primary" style="font-size:15px;padding:18px 44px">
+          Shop Heritage Collar — $89
+          <span class="btn-arrow">→</span>
         </a>
+        <a href="#reviews" style="font-size:14px;color:var(--stone);font-weight:500;border-bottom:1px solid rgba(107,101,96,0.3);padding-bottom:2px;">
+          Read 2,341 reviews
+        </a>
+      </div>
+      <div class="final-trust">
+        <div class="ftrust-item"><span class="ftrust-icon">🚚</span> Free shipping over $75</div>
+        <div class="ftrust-item"><span class="ftrust-icon">🔄</span> 60-day free returns</div>
+        <div class="ftrust-item"><span class="ftrust-icon">🛡️</span> Lifetime guarantee</div>
+        <div class="ftrust-item"><span class="ftrust-icon">✍️</span> Free engraving</div>
+      </div>
     </div>
+  </div>
 </section>
 
-<section class="products">
-    <h2>Best Sellers</h2>
-
-    <div class="grid">
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800">
-            <h3>Dog Toys</h3>
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo">PAWVARA</a>
+        <p class="footer-desc">Handcrafted leather accessories for dogs who live life at full speed — and look spectacular doing it.</p>
+        <div class="footer-socials">
+          <button class="social-btn" aria-label="Follow on Instagram">IG</button>
+          <button class="social-btn" aria-label="Follow on TikTok">TK</button>
+          <button class="social-btn" aria-label="Follow on Pinterest">PT</button>
+          <button class="social-btn" aria-label="Follow on Facebook">FB</button>
         </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=800">
-            <h3>Dog Beds</h3>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800">
-            <h3>Dog Collars</h3>
-        </div>
-
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Shop</div>
+        <a href="#">Heritage Collars</a>
+        <a href="#">Leather Leashes</a>
+        <a href="#">Harnesses</a>
+        <a href="#">Tags &amp; Charms</a>
+        <a href="#">Gift Sets</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Support</div>
+        <a href="#">Size Guide</a>
+        <a href="#">Shipping Info</a>
+        <a href="#">Returns</a>
+        <a href="#">Care Guide</a>
+        <a href="#">Contact Us</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <a href="#">Our Story</a>
+        <a href="#">Sustainability</a>
+        <a href="#">Ambassadors</a>
+        <a href="#">Press</a>
+        <a href="#">Careers</a>
+      </div>
     </div>
-</section>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 PAWVARA. All rights reserved. Made with ♥ for dogs everywhere.</div>
+      <div class="footer-payments">
+        <span class="payment-badge">VISA</span>
+        <span class="payment-badge">MC</span>
+        <span class="payment-badge">AMEX</span>
+        <span class="payment-badge">PAYPAL</span>
+        <span class="payment-badge">APPLE PAY</span>
+      </div>
+    </div>
+  </div>
+</footer>
 
+<!-- ══ STICKY MOBILE BUY ══ -->
+<div class="sticky-buy" id="stickyBuy" aria-label="Quick purchase">
+  <div>
+    <div style="font-size:11px;color:var(--stone-light);font-weight:500;letter-spacing:0.5px;margin-bottom:2px">Heritage Collar</div>
+    <div class="sticky-buy-price">$89</div>
+  </div>
+  <button class="btn-primary" onclick="showToast()">Add to Cart 🛒</button>
+</div>
+
+<!-- ══ TOAST ══ -->
+<div class="toast" id="toast" role="alert" aria-live="polite">
+  <span class="toast-icon">✓</span>
+  Heritage Collar added to cart!
+</div>
+
+<script>
+// ══ NAV SCROLL ══
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// ══ MOBILE NAV ══
+const hamburger = document.getElementById('navHamburger');
+const drawer = document.getElementById('navDrawer');
+const overlay = document.getElementById('navOverlay');
+const drawerClose = document.getElementById('drawerClose');
+
+function openDrawer() {
+  drawer.classList.add('open');
+  overlay.classList.add('active');
+  hamburger.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+}
+function closeDrawer() {
+  drawer.classList.remove('open');
+  overlay.classList.remove('active');
+  hamburger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+hamburger.addEventListener('click', openDrawer);
+drawerClose.addEventListener('click', closeDrawer);
+overlay.addEventListener('click', closeDrawer);
+document.querySelectorAll('.drawer-link').forEach(l => l.addEventListener('click', closeDrawer));
+
+// ══ SCROLL REVEAL ══
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('revealed');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+revealEls.forEach(el => revealObserver.observe(el));
+
+// ══ GALLERY ══
+const galleryMainImg = document.getElementById('galleryMainImg');
+const thumbs = document.querySelectorAll('.gallery-thumb');
+
+const galleryContent = [
+  { bg: 'linear-gradient(135deg,#2d1f0e,#4a3808)', emoji: '🐕', label: 'Heritage Collar' },
+  { bg: 'linear-gradient(135deg,#1a2e1a,#2a4a2a)', emoji: '🌿', label: 'Vegetable Tanned' },
+  { bg: 'linear-gradient(135deg,#2e2020,#4a3030)', emoji: '🏷️', label: 'Brass Hardware' },
+  { bg: 'linear-gradient(135deg,#1a1a2e,#2a2a4a)', emoji: '✨', label: 'Engraved Tag' },
+];
+
+thumbs.forEach((thumb, i) => {
+  thumb.addEventListener('click', () => {
+    thumbs.forEach(t => t.classList.remove('active'));
+    thumb.classList.add('active');
+    const c = galleryContent[i];
+    galleryMainImg.style.background = c.bg;
+    galleryMainImg.innerHTML = `
+      <div style="text-align:center;">
+        <div style="font-size:120px;line-height:1;margin-bottom:16px;">${c.emoji}</div>
+        <div style="font-family:'Playfair Display',serif;font-size:22px;color:rgba(247,243,238,0.9);font-style:italic;">${c.label}</div>
+      </div>`;
+  });
+});
+
+// ══ SIZE SELECTOR ══
+document.querySelectorAll('.size-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    document.getElementById('selectedSize').textContent = {
+      XS: 'X-Small', S: 'Small', M: 'Medium', L: 'Large', XL: 'X-Large'
+    }[this.dataset.size] || this.dataset.size;
+  });
+});
+
+// ══ COLOR SELECTOR ══
+document.querySelectorAll('.color-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// ══ QTY ══
+let qty = 1;
+const qtyVal = document.getElementById('qtyVal');
+document.getElementById('qtyMinus').addEventListener('click', () => {
+  if (qty > 1) { qty--; qtyVal.textContent = qty; }
+});
+document.getElementById('qtyPlus').addEventListener('click', () => {
+  if (qty < 10) { qty++; qtyVal.textContent = qty; }
+});
+
+// ══ TOAST ══
+function showToast() {
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+document.getElementById('addToCartBtn').addEventListener('click', showToast);
+
+// ══ FAQ ACCORDION ══
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const item = this.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      this.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
+
+// ══ STICKY MOBILE BUY ══
+const stickyBuy = document.getElementById('stickyBuy');
+const productSection = document.getElementById('product');
+const footerEl = document.querySelector('footer');
+
+function checkSticky() {
+  if (!productSection) return;
+  const productRect = productSection.getBoundingClientRect();
+  const footerRect = footerEl.getBoundingClientRect();
+  const show = productRect.bottom < 0 && footerRect.top > window.innerHeight;
+  stickyBuy.classList.toggle('visible', show);
+}
+window.addEventListener('scroll', checkSticky, { passive: true });
+
+// ══ PARALLAX ORBS ══
+function parallaxOrbs() {
+  const y = window.scrollY;
+  const orbs = document.querySelectorAll('.hero-orb');
+  orbs.forEach((orb, i) => {
+    const speed = (i + 1) * 0.1;
+    orb.style.transform = `translateY(${y * speed}px)`;
+  });
+}
+window.addEventListener('scroll', parallaxOrbs, { passive: true });
+
+// ══ SMOOTH HOVER LIFT on all cards ══
+document.querySelectorAll('.benefit-card, .review-card, .lcard').forEach(card => {
+  card.addEventListener('mouseenter', function() {
+    this.style.willChange = 'transform, box-shadow';
+  });
+  card.addEventListener('mouseleave', function() {
+    this.style.willChange = '';
+  });
+});
+
+// ══ BUY NOW BUTTONS ══
+document.querySelectorAll('.buy-now').forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Simulate purchase - scroll to top / product section
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+// ══ INITIAL LOAD ANIMATION CLEANUP ══
+window.addEventListener('load', () => {
+  document.body.style.opacity = '1';
+});
+</script>
 </body>
 </html>
-```
