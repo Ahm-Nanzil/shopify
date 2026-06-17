@@ -1,0 +1,179 @@
+<!-- ═══════════════════════════════════════
+     PAWVARA — footer.html component
+═══════════════════════════════════════ -->
+
+<!-- FINAL CTA SECTION -->
+<section class="final-section section-pad" id="final-cta">
+  <div class="final-orb final-orb-1"></div>
+  <div class="final-orb final-orb-2"></div>
+  <div class="container">
+    <div class="final-inner">
+      <p class="eyebrow" data-reveal="up">Join the Pack</p>
+      <h2 class="final-title display-lg" data-reveal="up" data-delay="100">
+        Every dog deserves<br><em>extraordinary.</em>
+      </h2>
+      <p class="final-sub" data-reveal="up" data-delay="200">
+        Discover premium accessories crafted for dogs who live beautifully. Free shipping over $75. 60-day returns. Always.
+      </p>
+      <div class="final-actions" data-reveal="up" data-delay="300">
+        <a href="#best-sellers" class="btn btn-primary btn-lg magnetic">Shop Best Sellers →</a>
+        <a href="#new-arrivals" class="btn btn-ghost-cream btn-lg">New Arrivals</a>
+      </div>
+      <div class="final-trust" data-reveal="up" data-delay="400">
+        <div class="ftrust-item"><span class="ftrust-icon">✓</span> Free Shipping $75+</div>
+        <div class="ftrust-item"><span class="ftrust-icon">✓</span> 60-Day Returns</div>
+        <div class="ftrust-item"><span class="ftrust-icon">✓</span> Lifetime Warranty</div>
+        <div class="ftrust-item"><span class="ftrust-icon">✓</span> 50K+ Happy Pups</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-top">
+
+      <!-- Brand -->
+      <div class="footer-brand footer-col">
+        <a href="index.html" class="footer-brand-logo">PAWVARA</a>
+        <p class="footer-desc">
+          Premium accessories for dogs who deserve the best. Handcrafted with love, designed to last a lifetime.
+        </p>
+        <div class="footer-socials" aria-label="Social media links">
+          <a href="#" class="social-btn" aria-label="Instagram">IG</a>
+          <a href="#" class="social-btn" aria-label="TikTok">TK</a>
+          <a href="#" class="social-btn" aria-label="Pinterest">PT</a>
+          <a href="#" class="social-btn" aria-label="Facebook">FB</a>
+        </div>
+      </div>
+
+      <!-- Shop -->
+      <div class="footer-col">
+        <div class="footer-col-title">Shop</div>
+        <a href="#best-sellers">Best Sellers</a>
+        <a href="#new-arrivals">New Arrivals</a>
+        <a href="#categories">Harnesses</a>
+        <a href="#categories">Collars</a>
+        <a href="#categories">Leashes</a>
+        <a href="#categories">Beds & Comfort</a>
+        <a href="#categories">Travel</a>
+      </div>
+
+      <!-- Help -->
+      <div class="footer-col">
+        <div class="footer-col-title">Help</div>
+        <a href="#faq">FAQ</a>
+        <a href="#">Sizing Guide</a>
+        <a href="#">Shipping Info</a>
+        <a href="#">Returns</a>
+        <a href="#">Track Order</a>
+        <a href="#">Contact Us</a>
+      </div>
+
+      <!-- Company -->
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <a href="#">Our Story</a>
+        <a href="#">Sustainability</a>
+        <a href="#">Press</a>
+        <a href="#">Careers</a>
+        <a href="#">Affiliates</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Pawvara Inc. All rights reserved. Made with ♥ for dogs everywhere.</p>
+      <div class="footer-payments" aria-label="Accepted payment methods">
+        <div class="pay-badge">VISA</div>
+        <div class="pay-badge">MC</div>
+        <div class="pay-badge">AMEX</div>
+        <div class="pay-badge">PAYPAL</div>
+        <div class="pay-badge">APPLE</div>
+        <div class="pay-badge">GOOGLE</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky-cta" role="complementary" aria-label="Shop call to action">
+  <div style="flex:1">
+    <div style="font-size:12px;color:var(--stone);font-weight:500">Free shipping over $75</div>
+    <div style="font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--ink)">Shop the Collection</div>
+  </div>
+  <a href="#best-sellers" class="btn btn-primary">Shop Now</a>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="globalToast" role="status" aria-live="polite">
+  <span class="toast-icon">✓</span>
+  <span id="toastMsg"></span>
+</div>
+
+<!-- QUICK VIEW MODAL STYLES (injected here to keep it self-contained) -->
+<style>
+.qv-modal {
+  position: fixed; inset: 0;
+  z-index: 2000;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s;
+}
+.qv-modal.open {
+  opacity: 1; pointer-events: all;
+}
+.qv-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(14,12,10,0.7);
+  backdrop-filter: blur(4px);
+}
+.qv-panel {
+  position: relative; z-index: 1;
+  background: var(--cream);
+  border-radius: var(--r-lg);
+  max-width: 680px; width: calc(100vw - 48px);
+  max-height: calc(100dvh - 48px);
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(16px) scale(0.97);
+  transition: transform 0.35s var(--ease-out);
+}
+.qv-modal.open .qv-panel { transform: none; }
+.qv-img {
+  aspect-ratio: 3/4;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 80px;
+  border-radius: var(--r-lg) 0 0 var(--r-lg);
+  overflow: hidden;
+}
+.qv-info {
+  padding: 36px 32px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.qv-cat { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--stone); }
+.qv-title { font-family: var(--font-display); font-size: 24px; font-weight: 600; color: var(--ink); line-height: 1.2; }
+.qv-stars { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--stone); }
+.qv-stars .stars { color: var(--gold); font-size: 14px; }
+.qv-price { display: flex; align-items: center; gap: 10px; }
+.qv-desc { font-size: 14px; color: var(--stone); line-height: 1.7; flex: 1; }
+.qv-add { margin-top: auto; }
+.qv-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--cream-deep); color: var(--stone);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; z-index: 2;
+  transition: all 0.2s;
+}
+.qv-close:hover { background: var(--ink); color: var(--cream); }
+@media (max-width: 560px) {
+  .qv-panel { grid-template-columns: 1fr; }
+  .qv-img { aspect-ratio: 4/3; border-radius: var(--r-lg) var(--r-lg) 0 0; }
+}
+</style>

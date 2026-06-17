@@ -1,0 +1,175 @@
+the prompt is below. above six files has been created. create index.html, not above files. above is complete. you have to create index.html which isn't created yet. in every file top you can see the name . but for your better understanding i am giving you the name also which are created already main.css ,animations.css,components.css,responsive.css,animations.js,products.js, main.js, responsive.css so create other file. struture is Shopify/
+│
+├── index.html
+├── product.html
+│
+├── assets/
+│   ├── css/
+│   │   ├── main.css
+│   │   ├── animations.css
+│   │   ├── components.css
+│   │   └── responsive.css
+│   │
+│   ├── js/
+│   │   ├── main.js
+│   │   ├── animations.js
+│   │   ├── carousel.js
+│   │   └── products.js
+│   │
+│   └── images/
+│
+└── components/
+        ├── header.html
+        ├──     footer.html
+
+
+prompt is Create a premium ecommerce website for a dog accessories brand.
+Refactor the project into a professional multi-file architecture.
+Project Structure:
+/index.html /product.html
+/assets/css/ main.css animations.css components.css responsive.css
+/assets/js/ main.js animations.js carousel.js products.js
+/assets/images/
+/components/ header.html footer.html product-card.html
+Requirements:
+The current website feels too illustration-focused and displays only a single product. Transform it into a premium ecommerce experience that feels like a modern direct-to-consumer brand selling multiple dog accessories.
+Visual Goals:
+
+Premium and sophisticated
+Real product focused
+Modern ecommerce experience
+Visually attractive
+Stylish and memorable
+High-end retail feel
+Strong visual hierarchy
+Professional product presentation
+Rich interactions
+Immersive browsing experience
+Animation Requirements:
+
+Smooth page reveal animation
+Scroll-triggered animations
+Product card entrance animations
+Image reveal animations
+Hover transformations
+Mouse-follow effects where appropriate
+Smooth parallax effects
+Interactive category transitions
+Floating visual accents
+Animated counters
+Animated trust badges
+Smooth section transitions
+Sticky CTA animations
+Premium loading experience
+Smooth product image transitions
+Motion design throughout the experience
+Homepage Sections:
+
+Hero Section
+
+Strong visual impact
+Large lifestyle photography
+Dynamic entrance animations
+Premium storytelling
+Multiple call-to-action buttons
+
+Featured Categories
+Display category cards for:
+
+Harnesses
+Collars
+Leashes
+Toys
+Beds
+Travel Accessories
+Each category should have:
+
+Image
+Hover animation
+Explore button
+Animated interaction
+
+Best Sellers Carousel
+Create a horizontal product slider.
+Requirements:
+
+Multiple products visible
+Left and right navigation arrows
+Mouse drag support
+Touch swipe support
+Smooth scrolling
+Infinite loop effect
+Product quick preview
+Product badges
+Product ratings
+Use placeholder products and external images.
+
+New Arrivals Section
+Display 8–12 products.
+Requirements:
+
+Grid layout
+Filter animation
+Category filtering
+Hover interactions
+Quick add button
+Smooth transitions
+
+Lifestyle Gallery
+Create a visually impressive gallery.
+Requirements:
+
+Masonry layout
+Scroll animations
+Image reveal effects
+Dynamic movement
+Use external dog lifestyle photography.
+
+Why Customers Choose Us
+Use animated feature cards.
+
+Testimonials
+Animated review carousel.
+
+Instagram Inspired Gallery
+Interactive image grid.
+
+FAQ
+Animated accordion.
+
+Final Conversion Section
+Strong conversion-focused call-to-action.
+Product Section Improvements:
+The current design only highlights one product.
+Replace it with:
+
+Category browsing
+Product collections
+Best sellers
+New arrivals
+Trending products
+Recommended products
+Visitors should immediately understand there are multiple products available.
+Use realistic placeholder products and external image URLs.
+Product Cards Must Include:
+
+Product image
+Product title
+Price
+Rating
+Quick view
+Add to cart button
+Hover animations
+Secondary image on hover
+Technical Requirements:
+
+Separate HTML, CSS and JS files
+Clean architecture
+Reusable components
+Semantic HTML
+SEO optimized
+Responsive design
+No frameworks
+Vanilla JavaScript
+Maintainable codebase
+Production-quality structure The final website should feel like a premium ecommerce brand selling dog accessories, with strong animations, rich product discovery, multiple product categories, horizontal scrolling collections, and visually impressive interactions that encourage exploration and purchasing.
