@@ -1,0 +1,276 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Dog - Elmora</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    color:#222;
+    line-height:1.6;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
+
+header{
+    padding:20px 0;
+    border-bottom:1px solid #eee;
+    background:#fff;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+}
+
+.hero{
+    padding:60px 0;
+}
+
+.product{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:50px;
+    align-items:center;
+}
+
+.product img{
+    width:100%;
+    border-radius:15px;
+}
+
+.badge{
+    display:inline-block;
+    background:#e8f7ea;
+    color:#1e7e34;
+    padding:8px 15px;
+    border-radius:30px;
+    margin-bottom:15px;
+    font-size:14px;
+}
+
+h1{
+    font-size:48px;
+    margin-bottom:10px;
+}
+
+.price{
+    font-size:36px;
+    font-weight:bold;
+    margin:20px 0;
+}
+
+.buy-btn{
+    display:inline-block;
+    background:#ff9800;
+    color:white;
+    text-decoration:none;
+    padding:15px 35px;
+    border-radius:8px;
+    font-size:18px;
+    margin-top:20px;
+}
+
+.features{
+    padding:80px 0;
+    background:#f8f8f8;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+    margin-top:30px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.reviews{
+    padding:80px 0;
+}
+
+.review{
+    background:#fff;
+    border:1px solid #eee;
+    padding:25px;
+    margin-top:20px;
+    border-radius:10px;
+}
+
+.faq{
+    padding:80px 0;
+    background:#f8f8f8;
+}
+
+.faq-item{
+    margin-top:20px;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+}
+
+.sticky{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    background:white;
+    border-top:1px solid #ddd;
+    padding:15px;
+    text-align:center;
+}
+
+.sticky a{
+    background:#ff9800;
+    color:white;
+    text-decoration:none;
+    padding:12px 30px;
+    border-radius:8px;
+}
+
+@media(max-width:768px){
+    .product{
+        grid-template-columns:1fr;
+    }
+
+    h1{
+        font-size:34px;
+    }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div class="logo">🐾 Elmora</div>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container">
+        <div class="product">
+
+            <div>
+                <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=1200" alt="Dog Product">
+            </div>
+
+            <div>
+                <div class="badge">Best Seller</div>
+
+                <h1>Test Dog</h1>
+
+                <p>Premium comfort and quality for your beloved companion.</p>
+
+                <div class="price">$15.00</div>
+
+                <p>
+                    Give your dog the comfort they deserve with our premium-quality dog accessory. Designed for durability, comfort, and everyday use.
+                </p>
+
+                <a class="buy-btn" href="https://elmora.net/cart/48539943043321:1">
+                    Buy Now
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="container">
+
+        <h2>Why Dog Owners Love It</h2>
+
+        <div class="grid">
+
+            <div class="card">
+                <h3>Premium Quality</h3>
+                <p>Built with durable materials for long-lasting use.</p>
+            </div>
+
+            <div class="card">
+                <h3>Dog Approved</h3>
+                <p>Designed to keep your furry friend comfortable and happy.</p>
+            </div>
+
+            <div class="card">
+                <h3>Easy Maintenance</h3>
+                <p>Simple to clean and suitable for daily use.</p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<section class="reviews">
+    <div class="container">
+
+        <h2>Customer Reviews</h2>
+
+        <div class="review">
+            ⭐⭐⭐⭐⭐
+            <p>My dog absolutely loves it. Great quality and fast shipping.</p>
+            <strong>- Sarah M.</strong>
+        </div>
+
+        <div class="review">
+            ⭐⭐⭐⭐⭐
+            <p>Worth every penny. Highly recommended for dog owners.</p>
+            <strong>- John D.</strong>
+        </div>
+
+    </div>
+</section>
+
+<section class="faq">
+    <div class="container">
+
+        <h2>Frequently Asked Questions</h2>
+
+        <div class="faq-item">
+            <strong>How long does shipping take?</strong>
+            <p>Usually 5–10 business days.</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>Is it suitable for all dogs?</strong>
+            <p>Yes, designed for most breeds and sizes.</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>Do you offer returns?</strong>
+            <p>Yes, we offer a customer-friendly return policy.</p>
+        </div>
+
+    </div>
+</section>
+
+<div class="sticky">
+    <a href="https://elmora.net/cart/48539943043321:1">
+        Buy Now - $15
+    </a>
+</div>
+
+</body>
+</html>
+```
